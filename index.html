@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Robot Flight Course</title>
+  <title>Tech Challenge: Robo Parkour</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -33,6 +34,28 @@
 
   <footer>
     <p>Adapted from the Python/Pygame build to a canvas-powered web experience.</p>
+    <h1>Tech Challenge: Dual-Robot Parkour</h1>
+    <p>Two robotics-club prototypes collaborate to clear a trap-filled course. Guide Spark (orange) and Wave (blue) to the exit pads without touching hazards.</p>
+    <ul class="controls">
+      <li><strong>Spark</strong>: A / D to move, W to jump.</li>
+      <li><strong>Wave</strong>: ◀ ▶ to move, ▲ to jump.</li>
+      <li>Both must stand on their matching pads to win.</li>
+    </ul>
+  </header>
+
+  <main>
+    <section class="game-wrapper">
+      <canvas id="game" width="960" height="540" aria-label="Robo Parkour Course" role="img"></canvas>
+      <aside class="status" aria-live="polite">
+        <div class="badge">Season: Decode</div>
+        <div id="statusText">Boot the prototypes and reach the pads.</div>
+        <button id="reset">Reset Course</button>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for the first tech challenge: full robotics flair, full cooperation.</p>
   </footer>
 
   <script src="script.js"></script>
