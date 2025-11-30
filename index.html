@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Flight Course</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Robot Flight Course</h1>
+      <p>A browser port of the robotics-themed flappy run. Launch the bot, weave through reactor stacks, and survive the shutdown gauntlet.</p>
+    </div>
+    <div class="controls">
+      <span><strong>Space</strong> = Boost</span>
+      <span><strong>F</strong> = Toggle fullscreen</span>
+      <span><strong>Click Reset</strong> = Back to hangar</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <canvas id="game" aria-label="Robot flight course" role="img"></canvas>
+    <aside class="panel" aria-live="polite">
+      <div class="status">
+        <p id="statusText">Press Space to launch from the hangar.</p>
+        <div class="score" id="score">0</div>
+      </div>
+      <button id="reset">Reset Course</button>
+      <p class="hint">Hovering screws, sparks, and panel shards bring the original death animations to the web version.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <p>Adapted from the Python/Pygame build to a canvas-powered web experience.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
