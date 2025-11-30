@@ -79,6 +79,19 @@ const robots = [
 
 let keys = {};
 let messageTimer;
+let winState = false;
+
+function setStatus(message) {
+  statusText.textContent = message;
+  clearTimeout(messageTimer);
+  if (message !== "Boot the prototypes and reach the pads.") {
+    messageTimer = setTimeout(() => {
+      if (!winState) {
+        statusText.textContent = "Boot the prototypes and reach the pads.";
+      }
+    }, 2200);
+  }
+}
 
 function drawPlatform(p) {
   ctx.fillStyle = colors.platform;
@@ -122,16 +135,23 @@ function rectsOverlap(a, b) {
 }
 
 function updateSwitches() {
+  let gateChanged = false;
   for (const s of level.switches) {
     s.held = robots.some((r) => {
       const dist = Math.hypot(r.x + r.w / 2 - s.x, r.y + r.h / 2 - s.y);
       return dist < s.radius + Math.min(r.w, r.h) / 2;
     });
-    if (s.held) {
-      level.gates.forEach((g) => {
-        if (g.id === s.id) g.open = true;
-      });
-    }
+    level.gates.forEach((g) => {
+      if (g.id === s.id) {
+        const nextOpen = s.held;
+        gateChanged = gateChanged || g.open !== nextOpen;
+        g.open = nextOpen;
+      }
+    });
+  }
+
+  if (gateChanged) {
+    setStatus("Gate toggled: maintain pressure on the switch.");
   }
 }
 
@@ -175,9 +195,11 @@ function applyPhysics(robot) {
   }
 
   robot.y = Math.min(robot.y, canvas.height - robot.h);
+  robot.x = Math.max(0, Math.min(robot.x, canvas.width - robot.w));
 }
 
 function checkHazards(robot) {
+  if (winState) return;
   for (const h of level.hazards) {
     if (rectsOverlap(robot, h)) {
       if ((robot.tag === "spark" && h.type === "water") || (robot.tag === "wave" && h.type === "fire")) {
@@ -188,10 +210,12 @@ function checkHazards(robot) {
 }
 
 function checkGoals() {
+  if (winState) return;
   const sparkOnGoal = rectsOverlap(robots[0], level.goals[0]);
   const waveOnGoal = rectsOverlap(robots[1], level.goals[1]);
   if (sparkOnGoal && waveOnGoal) {
-    statusText.textContent = "Course cleared! Robots synced for the next decode season stage.";
+    winState = true;
+    setStatus("Course cleared! Robots synced for the next decode season stage.");
   }
 }
 
@@ -252,14 +276,11 @@ function resetGame(message) {
   robots.forEach((r) => r.reset());
   level.gates.forEach((g) => (g.open = false));
   level.switches.forEach((s) => (s.held = false));
+  winState = false;
   if (message) {
-    statusText.textContent = message;
-    clearTimeout(messageTimer);
-    messageTimer = setTimeout(() => {
-      statusText.textContent = "Boot the prototypes and reach the pads.";
-    }, 2000);
+    setStatus(message);
   } else {
-    statusText.textContent = "Boot the prototypes and reach the pads.";
+    setStatus("Boot the prototypes and reach the pads.");
   }
 }
 
