@@ -1,0 +1,129 @@
+:root {
+  --bg: #0b1021;
+  --panel: #131a33;
+  --accent: #ff7b2f;
+  --accent-2: #2fb3ff;
+  --text: #e8eeff;
+  --muted: #8aa2c6;
+  --hazard: #c21d5d;
+  --hazard-2: #2463b3;
+  --goal: #52d273;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(47, 179, 255, 0.06), transparent 30%),
+    radial-gradient(circle at 80% 10%, rgba(255, 123, 47, 0.08), transparent 28%),
+    var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(255, 123, 47, 0.18), rgba(47, 179, 255, 0.12));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.topbar h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.topbar p {
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+.controls {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: var(--text);
+}
+
+main {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.game-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 16px;
+  width: min(1100px, 95vw);
+}
+
+canvas#game {
+  width: 100%;
+  background: linear-gradient(180deg, #0f1630 0%, #0a0f1f 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+}
+
+.status {
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: fit-content;
+}
+
+.badge {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0a0f1f;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#reset {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.1s;
+}
+
+#reset:hover {
+  border-color: var(--accent-2);
+}
+
+#reset:active {
+  transform: scale(0.99);
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+
+@media (max-width: 960px) {
+  .game-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .status {
+    order: -1;
+  }
+}
